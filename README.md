@@ -14,24 +14,24 @@ This project aims to address phishing attacks' pressing needs and problems by de
 
 Our approach to combat this problem is to detect these emails using trained Machine Learning models to determine whether it believes it’s a phishing email or not. The program will primarily focus on phishing attacks, as other forms, be it smishing for example, will be a topic we will hopefully tackle at a later date for development.
 
+### Installation 
+Tools required are:
+- Python
+- Scikit-learn version 1.2.2 (Required to be this specific version)
+- Pandas
+- Numpy libraries
+
 ### Live Demo
 Live Demo Video: [https://www.youtube.com/watch?v=](https://youtu.be/yj_bCdpq26Q)https://youtu.be/yj_bCdpq26Q
 
-The live demo for the program begins with the prerequisite need to get an .eml file, which can be taken from any email provider you can find and use.
+The program has the prerequisite need to have an .eml file, which can be taken from any email provider you can find and use.
 
 For this example, we have two test .eml files, the first one “safe email.eml”  which has no signs of phishing, while the other file “sign_up.eml” has a recent scam url link which makes it a phishing email.
 
 The phishing detection application basically has you select the browse button to find the .eml file in the directory and once you have the file, you begin the phish check which will go through the information found in the email, specifically the plain text and url content found in the email body, to determine if it is a legitimate or phishing email.
 
-As you can see through the results of the program for safe email, the .eml file is found to be unlikely to be a phishing email. While browsing through the directory for the sign_up email, the phish check
+As you can see through the results of the program for safe email, the safe email.eml file is found to be unlikely a phishing email. While browsing through the directory for the sign_up email, the phish check returns that the url is 100% a phishing link, which the program accurately determines that the email is a phishing attack.
 
-We returns that the url is 100% a phishing link, which the program accurately determines that the email is a phishing attack.
 
-### Installation 
-Tools required are:
-- Python
-- Scikit-learn version 1.2.2 (Required to be this speciifc version)
-- Pandas
-- Numpy libraries
 
 
