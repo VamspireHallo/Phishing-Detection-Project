@@ -1,11 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
-import os
 import email
 import pickle
-
-from numpy import float32
-
 from util import extract_email_content
 from util import predict_url
 from util import predict_email
@@ -14,6 +10,7 @@ file_path = None
 
 
 def set_file_path(file):
+    global file_path
     file_path = file
 
 
@@ -38,58 +35,64 @@ def browse_file():
 
 
 def utility():
-    with open(file_path, 'rb') as file:
-        eml_content = file.read()
-    message = email.message_from_bytes(eml_content)
+    try:
+        if is_eml_file(file_path):
+            with open(file_path, 'rb') as file:
+                eml_content = file.read()
+            message = email.message_from_bytes(eml_content)
 
-    text, urls = extract_email_content(message)
-    # Checks if there are any urls, otherwise check only email text
-    if urls:
-        uFile = open('phishing_url_detection_random_forest.pkl', 'rb')
-        url_model = pickle.load(uFile)
+            text, urls = extract_email_content(message)
+            # Checks if there are any urls, otherwise check only email text
+            if urls:
+                uFile = open('phishing_url_detection_random_forest.pkl', 'rb')
+                url_model = pickle.load(uFile)
 
-        sFile = open('url_scaler.pkl', 'rb')
-        scaler = pickle.load(sFile)
+                sFile = open('url_scaler.pkl', 'rb')
+                scaler = pickle.load(sFile)
 
-        eFile = open('email_detection_logistic_regression.pkl', 'rb')
-        email_model = pickle.load(eFile)
+                eFile = open('email_detection_logistic_regression.pkl', 'rb')
+                email_model = pickle.load(eFile)
 
-        vFile = open('email_vectorizer.pkl', 'rb')
-        vectorizer = pickle.load(vFile)
+                vFile = open('email_vectorizer.pkl', 'rb')
+                vectorizer = pickle.load(vFile)
 
-        url_pred = predict_url(urls, url_model, scaler)
-        email_pred = predict_email(text, email_model, vectorizer)
+                url_pred = predict_url(urls, url_model, scaler)
+                email_pred = predict_email(text, email_model, vectorizer)
 
-        counter = 0
-        if 1 in url_pred:
-            counter += 1
-        pct_url = 100 * counter / len(url_pred)
-        url_message = "URLs" + str(pct_url) + "%: Unlikely Phishing"
-       
-        if pct_url > 50:
-            url_message = "URLs" + str(pct_url) + "%: Likely Phishing"
-        email_message = "Text: Unlikely Phishing"
-        
-        if email_pred[0] == 1:
-            email_message = "Text: Likely Phishing"
-        show_message(url_message, email_message)
-        # label.config(url_pred)
-        # label.config(email_pred)
+                counter = 0
+                if 1 in url_pred:
+                    counter += 1
+                pct_url = 100 * counter / len(url_pred)
+                url_message = "URLs: " + str(pct_url) + "% Unlikely Phishing"
 
-    else:
-        eFile = open('email_detection_logistic_regression.pkl', 'rb')
-        email_model = pickle.load(eFile)
+                if pct_url > 50:
+                    url_message = "URLs: " + str(pct_url) + "% Likely Phishing"
+                email_message = "Text: Unlikely Phishing"
 
-        vFile = open('email_vectorizer.pkl', 'rb')
-        vectorizer = pickle.load(vFile)
+                if email_pred[0] == 1:
+                    email_message = "Text: Likely Phishing"
+                show_message(url_message, email_message)
+                # label.config(url_pred)
+                # label.config(email_pred)
 
-        email_pred = predict_email(text, email_model, vectorizer)
+            else:
+                eFile = open('email_detection_logistic_regression.pkl', 'rb')
+                email_model = pickle.load(eFile)
 
-        email_message = "Text: Unlikely Phishing"
-        if email_pred[0] == 1:
-            email_message = "Text: Likely Phishing"
-        show_message_email_only(email_message)
-        # label.config(email_pred)
+                vFile = open('email_vectorizer.pkl', 'rb')
+                vectorizer = pickle.load(vFile)
+
+                email_pred = predict_email(text, email_model, vectorizer)
+
+                email_message = "Text: Unlikely Phishing"
+                if email_pred[0] == 1:
+                    email_message = "Text: Likely Phishing"
+                show_message_email_only(email_message)
+                # label.config(email_pred)
+            set_file_path(None)
+            label.config(text="Selected File: None", fg="white")
+    except:
+        label.config(text="Please Select an eml File", fg="red")
 
 def show_message(url_message, email_message):
     messagebox.showinfo("Results", url_message + "\n" + email_message)
