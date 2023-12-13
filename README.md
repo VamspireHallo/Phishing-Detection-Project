@@ -22,7 +22,7 @@ Tools required are:
 - Numpy libraries
 
 # Live Demo
-###Live Demo Video: [https://www.youtube.com/watch?v=](https://youtu.be/yj_bCdpq26Q)
+###Live Demo Video: [Click Here](https://youtu.be/yj_bCdpq26Q)
 
 The program has the prerequisite need to have an .eml file, which can be taken from any email provider you can find and use.
 
