@@ -28,6 +28,10 @@ As you can see through the results of the program for safe email, the .eml file 
 We returns that the url is 100% a phishing link, which the program accurately determines that the email is a phishing attack.
 
 ### Installation 
-Scikit-learn version 1.2.2 (Required to be this version)
+Tools required are:
+- Python
+- Scikit-learn version 1.2.2 (Required to be this speciifc version)
+- Pandas
+- Numpy libraries
 
 
