@@ -15,7 +15,8 @@ This project aims to address phishing attacks' pressing needs and problems by de
 Our approach to combat this problem is to detect these emails using trained Machine Learning models to determine whether it believes it’s a phishing email or not. The program will primarily focus on phishing attacks, as other forms, be it smishing for example, will be a topic we will hopefully tackle at a later date for development.
 
 ### Live Demo
-[https://www.youtube.com/watch?v=](https://youtu.be/yj_bCdpq26Q)https://youtu.be/yj_bCdpq26Q
+Live Demo Video: [https://www.youtube.com/watch?v=](https://youtu.be/yj_bCdpq26Q)https://youtu.be/yj_bCdpq26Q
+
 The live demo for the program begins with the prerequisite need to get an .eml file, which can be taken from any email provider you can find and use.
 
 For this example, we have two test .eml files, the first one “safe email.eml”  which has no signs of phishing, while the other file “sign_up.eml” has a recent scam url link which makes it a phishing email.
